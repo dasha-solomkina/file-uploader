@@ -1,0 +1,118 @@
+* {
+  font-family: 'Lato', sans-serif;
+  margin: 0;
+}
+
+body {
+  padding: 3% 3% 0 3%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 16px;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+input {
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 16px;
+}
+
+textarea {
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 16px;
+  width: 600px;
+  height: 200px;
+  resize: none;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.message {
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: 2%;
+  max-width: 70%;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.time {
+  color: rgb(99, 98, 98);
+  font-style: italic;
+  margin-bottom: 4px;
+  font-size: 0.9rem;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  /* justify-content: space-between; */
+  min-height: 100vh;
+}
+
+#new-message {
+  background-color: orange;
+  color: black;
+  font-weight: 700;
+}
+
+footer {
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  margin-top: auto;
+  width: 100%;
+}
+
+#github {
+  text-decoration: none;
+  color: white;
+  margin-left: 6px;
+}
+
+#github:hover {
+  color: orange;
+}
+
+img {
+  width: 35px;
+  height: 35px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
