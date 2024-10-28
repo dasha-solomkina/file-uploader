@@ -10,7 +10,7 @@ datasource db {
 model User {
   id       String   @id @default(uuid())
   name     String
-  email    String // TODO: update to unique 
+  email    String   @unique
   password String
   folders  Folder[]
 }

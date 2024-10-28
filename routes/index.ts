@@ -17,5 +17,7 @@ import indexController from '../controllers/indexController'
 // ]
 
 indexRouter.get('/', indexController.getHome)
+indexRouter.get('/log-in', indexController.getLogIn)
+indexRouter.post('/sign-up', indexController.postSignUp)
 
 export default indexRouter

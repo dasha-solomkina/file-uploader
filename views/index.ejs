@@ -7,6 +7,51 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <h1>hi</h1>
+    <header>
+      <% if (currentUser) {%>
+      <h1>Welcome back <%= currentUser.name %>!</h1>
+      <div class="nav">
+        <a href="/log-out">
+          <button>Log out</button>
+        </a>
+      </div>
+
+      <% } else {%>
+      <h1>Log in to be able to upload the files</h1>
+      <div class="nav">
+        <a href="/log-in">
+          <button>Log in</button>
+        </a>
+
+        <a href="/">
+          <button>Sign up</button>
+        </a>
+      </div>
+
+      <% } %>
+    </header>
+    <% if (currentUser) {%>
+    <p>hi</p>
+    <% } else {%>
+
+    <form action="/sign-up" method="POST">
+      <input type="text" id="name" name="name" placeholder="Name" />
+      <input type="email" id="email" name="email" placeholder="Email" />
+      <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Password"
+      />
+      <input
+        type="password"
+        id="confirm-password"
+        name="confirmPassword"
+        placeholder="Confirm password"
+      />
+      <button type="submit">Sign-up</button>
+      <a href="/log-in"> Log in </a>
+    </form>
+    <% } %>
   </body>
 </html>
