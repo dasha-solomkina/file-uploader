@@ -6,6 +6,7 @@ import path from 'path'
 import { Strategy as LocalStrategy } from 'passport-local'
 import { PrismaClient } from '@prisma/client'
 import indexRouter from './routes/index'
+import { PrismaSessionStore } from '@quixo3/prisma-session-store'
 
 const prisma = new PrismaClient()
 const app = express()
@@ -13,7 +14,23 @@ const assetsPath = path.join(__dirname, 'public')
 
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
-app.use(session({ secret: 'cats', resave: false, saveUninitialized: false }))
+
+app.use(
+  session({
+    secret: 'cats',
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    },
+    store: new PrismaSessionStore(prisma, {
+      checkPeriod: 2 * 60 * 1000, // Check expired sessions every 2 minutes
+      dbRecordIdIsSessionId: true, // Use session ID as record ID
+      dbRecordIdFunction: undefined,
+    }),
+  })
+)
+
 app.use(passport.session())
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static(assetsPath))
