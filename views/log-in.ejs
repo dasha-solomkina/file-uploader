@@ -8,23 +8,33 @@
     <title>Log in</title>
   </head>
   <body>
-    <h1>Log into your account</h1>
+    <header>
+      <h1>Log into your account</h1>
+    </header>
 
-    <form action="/log-in" method="POST">
-      <input
-        type="email"
-        id="email"
-        name="email"
-        placeholder="your@gmail.com"
-      />
-      <input
-        type="password"
-        id="password"
-        name="password"
-        placeholder="Password"
-      />
-      <button type="submit">Log in</button>
-      <a href="/"> Sign up </a>
-    </form>
+    <div class="container">
+      <form action="/log-in" method="POST">
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="your@gmail.com"
+        />
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Password"
+        />
+        <button class="logging-btn" type="submit">Log in</button>
+        <a href="/"> Sign up </a>
+      </form>
+    </div>
+    <footer>
+      designed by
+      <a id="github" href="https://github.com/dasha-solomkina"
+        >dasha-solomkina</a
+      >
+    </footer>
   </body>
 </html>

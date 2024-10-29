@@ -8,12 +8,24 @@
     <title>New file</title>
   </head>
   <body>
-    <h1>Upload a new file</h1>
+    <header>
+      <h1>Upload a new file</h1>
+    </header>
 
-    <form action="/add-file" method="POST">
-      <label for="name">File name</label>
-      <input type="text" id="name" name="name" placeholder="schedule" />
-      <button type="submit">Upload file</button>
-    </form>
+    <div class="container">
+      <a class="back" href="/"> < go back </a>
+
+      <form action="/add-file" method="POST">
+        <label for="name">File name</label>
+        <input type="text" id="name" name="name" placeholder="schedule" />
+        <button class="logging-btn" type="submit">Upload file</button>
+      </form>
+    </div>
+    <footer>
+      designed by
+      <a id="github" href="https://github.com/dasha-solomkina"
+        >dasha-solomkina</a
+      >
+    </footer>
   </body>
 </html>

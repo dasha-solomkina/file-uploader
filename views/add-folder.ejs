@@ -8,12 +8,23 @@
     <title>New folder</title>
   </head>
   <body>
-    <h1>Creat a new folder</h1>
+    <header>
+      <h1>Creat a new folder</h1>
+    </header>
 
-    <form action="/add-folder" method="POST">
-      <label for="name">Folder name</label>
-      <input type="text" id="name" name="name" placeholder="work" />
-      <button type="submit">Create folder</button>
-    </form>
+    <div class="container">
+      <a class="back" href="/"> < go back</a>
+      <form action="/add-folder" method="POST">
+        <label for="name">Folder name</label>
+        <input type="text" id="name" name="name" placeholder="work" />
+        <button class="logging-btn" type="submit">Create folder</button>
+      </form>
+    </div>
+    <footer>
+      designed by
+      <a id="github" href="https://github.com/dasha-solomkina"
+        >dasha-solomkina</a
+      >
+    </footer>
   </body>
 </html>

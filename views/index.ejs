@@ -9,10 +9,10 @@
   <body>
     <header>
       <% if (currentUser) {%>
-      <h1>Welcome back, <%= currentUser.name %>!</h1>
+      <h1><%= currentUser.name %>'s drive</h1>
       <div class="nav">
         <a href="/log-out">
-          <button>Log out</button>
+          <button class="logging-btn">Log out</button>
         </a>
       </div>
 
@@ -20,47 +20,58 @@
       <h1>Log in to be able to upload the files</h1>
       <div class="nav">
         <a href="/log-in">
-          <button>Log in</button>
+          <button class="logging-btn">Log in</button>
         </a>
 
         <a href="/">
-          <button>Sign up</button>
+          <button class="logging-btn">Sign up</button>
         </a>
       </div>
 
       <% } %>
     </header>
     <% if (currentUser) {%>
-    <div>
-      <a href="/add-folder">
-        <button>Add folder</button>
-      </a>
-      <a href="/add-file">
-        <button>Add file</button>
-      </a>
-    </div>
+    <div class="container">
+      <div class="add-btn">
+        <a href="/add-folder">
+          <button class="folder-file-btn">Create folder</button>
+        </a>
+        <a href="/add-file">
+          <button class="folder-file-btn">Upload file</button>
+        </a>
+      </div>
 
-    <p>hi</p>
+      <p>hi</p>
+    </div>
     <% } else {%>
 
-    <form action="/sign-up" method="POST">
-      <input type="text" id="name" name="name" placeholder="Name" />
-      <input type="email" id="email" name="email" placeholder="Email" />
-      <input
-        type="password"
-        id="password"
-        name="password"
-        placeholder="Password"
-      />
-      <input
-        type="password"
-        id="confirm-password"
-        name="confirmPassword"
-        placeholder="Confirm password"
-      />
-      <button type="submit">Sign-up</button>
-      <a href="/log-in"> Log in </a>
-    </form>
+    <div class="container">
+      <form action="/sign-up" method="POST">
+        <input type="text" id="name" name="name" placeholder="Name" />
+        <input type="email" id="email" name="email" placeholder="Email" />
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Password"
+        />
+        <input
+          type="password"
+          id="confirm-password"
+          name="confirmPassword"
+          placeholder="Confirm password"
+        />
+        <button class="logging-btn" type="submit">Sign-up</button>
+        <a href="/log-in"> Log in </a>
+      </form>
+    </div>
     <% } %>
+
+    <footer>
+      designed by
+      <a id="github" href="https://github.com/dasha-solomkina"
+        >dasha-solomkina</a
+      >
+    </footer>
   </body>
 </html>

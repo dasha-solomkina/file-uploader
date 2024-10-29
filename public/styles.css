@@ -3,10 +3,6 @@
   margin: 0;
 }
 
-body {
-  padding: 3% 3% 0 3%;
-}
-
 form {
   display: flex;
   flex-direction: column;
@@ -15,9 +11,19 @@ form {
   align-items: center;
 }
 
-button {
-  background-color: black;
+.folder-file-btn {
+  background-color: #cbd5e0;
+  color: black;
+  font-weight: 600;
+  min-width: 120px;
+}
+
+.logging-btn {
+  background-color: #4a5568;
   color: white;
+}
+
+button {
   border: none;
   border-radius: 8px;
   padding: 6px 10px;
@@ -35,32 +41,13 @@ input {
   font-size: 16px;
 }
 
-textarea {
-  border: 1px solid black;
-  border-radius: 4px;
-  padding: 4px 10px;
-  font-size: 16px;
-  width: 600px;
-  height: 200px;
-  resize: none;
-}
-
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.message {
-  border: 1px solid black;
-  border-radius: 8px;
+  background-color: #edf2f7;
   padding: 2%;
-  max-width: 70%;
-  width: 500px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid #cbd5e0;
 }
 
 .time {
@@ -74,15 +61,16 @@ header {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  align-items: center;
+  padding: 2%;
+
+  /* align-items: center; */
   /* justify-content: space-between; */
   min-height: 100vh;
 }
 
-#new-message {
-  background-color: orange;
-  color: black;
-  font-weight: 700;
+.add-btn {
+  display: flex;
+  gap: 30px;
 }
 
 footer {
@@ -102,13 +90,14 @@ footer {
   margin-left: 6px;
 }
 
-#github:hover {
-  color: orange;
+.back {
+  text-decoration: none;
+  color: #8044e2;
+  font-style: italic;
 }
 
-img {
-  width: 35px;
-  height: 35px;
+#github:hover {
+  color: #8044e2;
 }
 
 .nav {
