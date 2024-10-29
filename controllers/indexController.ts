@@ -20,6 +20,22 @@ async function getLogIn(req: Request, res: Response) {
   }
 }
 
+async function getAddFolder(req: Request, res: Response) {
+  try {
+    res.render('add-folder')
+  } catch (error) {
+    res.status(500).send('Server error')
+  }
+}
+
+async function getAddFile(req: Request, res: Response) {
+  try {
+    res.render('add-file')
+  } catch (error) {
+    res.status(500).send('Server error')
+  }
+}
+
 async function postSignUp(req: Request, res: Response, next: NextFunction) {
   const { email, password, name } = req.body
 
@@ -73,6 +89,8 @@ const indexController = {
   getHome,
   getLogIn,
   postSignUp,
+  getAddFolder,
+  getAddFile,
 }
 
 export default indexController

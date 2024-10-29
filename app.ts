@@ -5,11 +5,8 @@ import passport from 'passport'
 import path from 'path'
 import { Strategy as LocalStrategy } from 'passport-local'
 import { PrismaClient } from '@prisma/client'
-// const LocalStrategy = require('passport-local').Strategy // delete when working
-
 import indexRouter from './routes/index'
 
-// import pool from './db/pool' // todo
 const prisma = new PrismaClient()
 const app = express()
 const assetsPath = path.join(__dirname, 'public')
@@ -27,24 +24,27 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 })
 
 passport.use(
-  new LocalStrategy(async (email, password, done) => {
-    try {
-      const user = await prisma.user.findUnique({
-        where: { email: email },
-      })
+  new LocalStrategy(
+    { usernameField: 'email' },
+    async (email, password, done) => {
+      try {
+        const user = await prisma.user.findUnique({
+          where: { email: email },
+        })
 
-      if (!user) {
-        return done(null, false, { message: 'Incorrect username' })
+        if (!user) {
+          return done(null, false, { message: 'Incorrect username' })
+        }
+        const isMatch = await bcrypt.compare(password, user.password)
+        if (!isMatch) {
+          return done(null, false, { message: 'Incorrect password' })
+        }
+        return done(null, user)
+      } catch (err) {
+        return done(err)
       }
-      const isMatch = await bcrypt.compare(password, user.password)
-      if (!isMatch) {
-        return done(null, false, { message: 'Incorrect password' })
-      }
-      return done(null, user)
-    } catch (err) {
-      return done(err)
     }
-  })
+  )
 )
 
 passport.serializeUser((user: any, done) => {
@@ -68,6 +68,7 @@ app.post(
   passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/log-in',
+    failureMessage: 'Invalid email or password',
   })
 )
 

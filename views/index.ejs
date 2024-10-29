@@ -9,7 +9,7 @@
   <body>
     <header>
       <% if (currentUser) {%>
-      <h1>Welcome back <%= currentUser.name %>!</h1>
+      <h1>Welcome back, <%= currentUser.name %>!</h1>
       <div class="nav">
         <a href="/log-out">
           <button>Log out</button>
@@ -31,6 +31,15 @@
       <% } %>
     </header>
     <% if (currentUser) {%>
+    <div>
+      <a href="/add-folder">
+        <button>Add folder</button>
+      </a>
+      <a href="/add-file">
+        <button>Add file</button>
+      </a>
+    </div>
+
     <p>hi</p>
     <% } else {%>
 
