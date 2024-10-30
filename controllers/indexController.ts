@@ -5,8 +5,16 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 async function getHome(req: Request, res: Response) {
+  const userId = res.locals.currentUser.id
+
   try {
-    res.render('index')
+    const folders = await prisma.folder.findMany({
+      where: {
+        userId: userId,
+      },
+    })
+    console.log(folders)
+    res.render('index', { folders: folders })
   } catch (error) {
     res.status(500).send('Server error')
   }
@@ -85,12 +93,31 @@ async function postSignUp(req: Request, res: Response, next: NextFunction) {
   }
 }
 
+async function postAddFolder(req: Request, res: Response) {
+  const { name } = req.body
+
+  try {
+    const userId = res.locals.currentUser.id
+
+    await prisma.folder.create({
+      data: {
+        name: name,
+        userId: userId,
+      },
+    })
+    res.redirect('/')
+  } catch (error) {
+    res.status(500).send('Server error')
+  }
+}
+
 const indexController = {
   getHome,
   getLogIn,
   postSignUp,
   getAddFolder,
   getAddFile,
+  postAddFolder,
 }
 
 export default indexController

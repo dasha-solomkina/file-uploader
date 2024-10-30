@@ -41,7 +41,16 @@
         </a>
       </div>
 
-      <p>hi</p>
+      <div class="folder-grid">
+        <div class="folder-header">
+          <h3>Name</h3>
+        </div>
+        <% folders.forEach((folder) => { %>
+        <div class="folder-card">
+          <p class="folder-name"><%= folder.name %></p>
+        </div>
+        <%})%>
+      </div>
     </div>
     <% } else {%>
 

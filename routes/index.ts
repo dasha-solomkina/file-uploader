@@ -1,4 +1,4 @@
-import { Router } from 'express'
+import { NextFunction, Router } from 'express'
 import { body } from 'express-validator'
 import indexController from '../controllers/indexController'
 
@@ -21,5 +21,6 @@ indexRouter.get('/log-in', indexController.getLogIn)
 indexRouter.post('/sign-up', validateSignUp, indexController.postSignUp)
 indexRouter.get('/add-folder', indexController.getAddFolder)
 indexRouter.get('/add-file', indexController.getAddFile)
+indexRouter.post('/add-folder', indexController.postAddFolder)
 
 export default indexRouter

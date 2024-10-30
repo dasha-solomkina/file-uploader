@@ -11,6 +11,14 @@ form {
   align-items: center;
 }
 
+label {
+  color: #4a5568;
+}
+
+form ::placeholder {
+  font-size: 0.9rem;
+}
+
 .folder-file-btn {
   background-color: #cbd5e0;
   color: black;
@@ -104,4 +112,30 @@ footer {
   display: flex;
   align-items: center;
   gap: 14px;
+}
+
+.folder-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.folder-card {
+  display: flex;
+  padding: 8px;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.folder-name {
+  font-weight: 600;
+}
+
+.folder-card:hover {
+  cursor: pointer;
+  background-color: #f7fafc;
+}
+
+.folder-header {
+  border-bottom: 1px solid #cbd5e0;
+  padding-bottom: 4px;
+  /* margin-bottom: 4px; */
 }
