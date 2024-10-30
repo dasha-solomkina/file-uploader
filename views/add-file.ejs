@@ -12,15 +12,37 @@
       <h1>Upload a new file</h1>
     </header>
 
+    <% if (folders) {%>
+
     <div class="container">
       <a class="back" href="/"> < go back </a>
 
       <form action="/add-file" method="POST">
         <label for="name">File name</label>
-        <input type="text" id="name" name="name" placeholder="schedule" />
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="E.g. 'First semester schedule'"
+        />
+        <label for="folder">Folder</label>
+
+        <select name="folder" id="folder" required>
+          <% folders.forEach((folder) => { %>
+          <option value="<%= folder.id %>"><%= folder.name %></option>
+          <%})%>
+        </select>
         <button class="logging-btn" type="submit">Upload file</button>
       </form>
     </div>
+
+    <% } else {%>
+    <div class="container">
+      <p class="error">Please first create a folder.</p>
+    </div>
+
+    <% } %>
+
     <footer>
       designed by
       <a id="github" href="https://github.com/dasha-solomkina"

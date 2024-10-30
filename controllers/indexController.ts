@@ -37,8 +37,15 @@ async function getAddFolder(req: Request, res: Response) {
 }
 
 async function getAddFile(req: Request, res: Response) {
+  const userId = res.locals.currentUser.id
+
   try {
-    res.render('add-file')
+    const folders = await prisma.folder.findMany({
+      where: {
+        userId: userId,
+      },
+    })
+    res.render('add-file', { folders })
   } catch (error) {
     res.status(500).send('Server error')
   }
@@ -51,7 +58,11 @@ async function getFolder(req: Request, res: Response) {
     const folder = await prisma.folder.findUnique({
       where: { id: folderId },
     })
-    res.render('folder', { folderId, folder })
+
+    const files = await prisma.files.findMany({
+      where: { folderId: folderId },
+    })
+    res.render('folder', { folderId, folder, files })
   } catch (error) {
     res.status(500).send('Server error')
   }

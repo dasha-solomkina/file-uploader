@@ -18,7 +18,22 @@
       <div class="file-grid">
         <div class="file-header">
           <h3>Name</h3>
+          <h3>Size</h3>
+          <h3>Time</h3>
         </div>
+
+        <% if (files) {%> <% files.forEach((file) => { %>
+        <div class="file-card">
+          <p class="file-name"><%= file.name %></p>
+          <p><%= file.size %></p>
+          <p><%= file.time %></p>
+        </div>
+        <%})%> <% } else {%>
+        <div>
+          <p class="error">This folder is empty.</p>
+        </div>
+
+        <% } %>
       </div>
     </div>
     <footer>
