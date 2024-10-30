@@ -47,7 +47,23 @@
         </div>
         <% folders.forEach((folder) => { %>
         <div class="folder-card">
-          <p class="folder-name"><%= folder.name %></p>
+          <a class="name-link" href="/folder/<%= folder.id %>">
+            <p><%= folder.name %></p>
+          </a>
+          <form
+            action="/folder/<%= folder.id %>"
+            method="POST"
+            style="display: inline"
+            class="delete"
+          >
+            <button
+              type="submit"
+              class="delete-btn"
+              onclick="return confirm('Are you sure you want to delete this folder?');"
+            >
+              delete
+            </button>
+          </form>
         </div>
         <%})%>
       </div>

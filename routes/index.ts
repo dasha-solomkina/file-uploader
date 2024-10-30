@@ -22,5 +22,7 @@ indexRouter.post('/sign-up', validateSignUp, indexController.postSignUp)
 indexRouter.get('/add-folder', indexController.getAddFolder)
 indexRouter.get('/add-file', indexController.getAddFile)
 indexRouter.post('/add-folder', indexController.postAddFolder)
+indexRouter.get('/folder/:id', indexController.getFolder)
+indexRouter.post('/folder/:id', indexController.postDeleteFolder)
 
 export default indexRouter

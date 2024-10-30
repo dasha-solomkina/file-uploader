@@ -44,6 +44,19 @@ async function getAddFile(req: Request, res: Response) {
   }
 }
 
+async function getFolder(req: Request, res: Response) {
+  const folderId = req.params.id
+
+  try {
+    const folder = await prisma.folder.findUnique({
+      where: { id: folderId },
+    })
+    res.render('folder', { folderId, folder })
+  } catch (error) {
+    res.status(500).send('Server error')
+  }
+}
+
 async function postSignUp(req: Request, res: Response, next: NextFunction) {
   const { email, password, name } = req.body
 
@@ -111,13 +124,28 @@ async function postAddFolder(req: Request, res: Response) {
   }
 }
 
+async function postDeleteFolder(req: Request, res: Response) {
+  const folderId = req.params.id
+
+  try {
+    await prisma.folder.delete({
+      where: { id: folderId },
+    })
+    res.redirect('/')
+  } catch (error) {
+    res.status(500).send('Server error')
+  }
+}
+
 const indexController = {
   getHome,
   getLogIn,
-  postSignUp,
   getAddFolder,
   getAddFile,
+  getFolder,
+  postSignUp,
   postAddFolder,
+  postDeleteFolder,
 }
 
 export default indexController

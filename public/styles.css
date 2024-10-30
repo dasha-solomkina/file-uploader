@@ -33,7 +33,7 @@ form ::placeholder {
 
 button {
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   padding: 6px 10px;
   font-size: 16px;
 }
@@ -123,14 +123,22 @@ footer {
   display: flex;
   padding: 8px;
   border-bottom: 1px solid #edf2f7;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.folder-name {
+.name-link {
+  text-decoration: none;
+  color: black;
   font-weight: 600;
 }
 
-.folder-card:hover {
+.name-link:hover {
   cursor: pointer;
+  color: #8044e2;
+}
+
+.folder-card:hover {
   background-color: #f7fafc;
 }
 
@@ -138,4 +146,14 @@ footer {
   border-bottom: 1px solid #cbd5e0;
   padding-bottom: 4px;
   /* margin-bottom: 4px; */
+}
+
+form .delete-btn {
+  background-color: transparent;
+  font-style: italic;
+  color: #4a5568;
+}
+
+form .delete-btn:hover {
+  color: #242c3a;
 }
