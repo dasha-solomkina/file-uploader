@@ -24,12 +24,12 @@ model Folder {
 }
 
 model Files {
-  id       String @id @default(uuid())
+  id       String   @id @default(uuid())
   name     String
-  size     Int
-  time     Int
+  size     String
+  time     DateTime @default(now())
   url      String
-  folder   Folder @relation(fields: [folderId], references: [id])
+  folder   Folder   @relation(fields: [folderId], references: [id])
   folderId String
 }
 

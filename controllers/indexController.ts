@@ -13,7 +13,6 @@ async function getHome(req: Request, res: Response) {
         userId: userId,
       },
     })
-    console.log(folders)
     res.render('index', { folders: folders })
   } catch (error) {
     res.status(500).send('Server error')
@@ -148,6 +147,39 @@ async function postDeleteFolder(req: Request, res: Response) {
   }
 }
 
+async function postDeleteFile(req: Request, res: Response): Promise<void> {
+  const fileId = req.params.id
+
+  try {
+    const file = await prisma.files.findUnique({
+      where: { id: fileId },
+    })
+
+    if (!file) {
+      res.status(404).send('File not found')
+      return
+    }
+
+    const folderId = file.folderId
+
+    await prisma.files.delete({
+      where: { id: fileId },
+    })
+
+    const files = await prisma.files.findMany({
+      where: { folderId: folderId },
+    })
+
+    const folder = await prisma.folder.findUnique({
+      where: { id: folderId },
+    })
+
+    res.render('folder', { folderId, folder, files })
+  } catch (error) {
+    res.status(500).send('Server error')
+  }
+}
+
 const indexController = {
   getHome,
   getLogIn,
@@ -157,6 +189,7 @@ const indexController = {
   postSignUp,
   postAddFolder,
   postDeleteFolder,
+  postDeleteFile,
 }
 
 export default indexController

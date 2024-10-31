@@ -7,6 +7,7 @@ import { Strategy as LocalStrategy } from 'passport-local'
 import { PrismaClient } from '@prisma/client'
 import indexRouter from './routes/index'
 import { PrismaSessionStore } from '@quixo3/prisma-session-store'
+import multer from 'multer'
 
 const prisma = new PrismaClient()
 const app = express()
@@ -79,6 +80,51 @@ passport.deserializeUser(async (id: string, done) => {
     done(err)
   }
 })
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9)
+    cb(null, file.originalname + '-' + uniqueSuffix)
+  },
+})
+
+const upload = multer({ storage: storage })
+
+app.post(
+  '/add-file',
+  upload.single('upload'),
+  async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { name, folder } = req.body
+
+      const file = req.file
+
+      if (!file) {
+        res.status(400).send('No file uploaded')
+        return
+      }
+      const fileSize = `${(file.size / 1024).toFixed(1)} KB`
+      const fileUrl = `path/to/your/storage/${file.originalname}`
+
+      await prisma.files.create({
+        data: {
+          name,
+          size: fileSize,
+          url: fileUrl,
+          folderId: folder,
+        },
+      })
+      res.redirect('/')
+    } catch (error) {
+      console.error('Error uploading file:', error)
+
+      res.status(500).send('Server error')
+    }
+  }
+)
 
 app.post(
   '/log-in',

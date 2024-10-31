@@ -9,7 +9,6 @@ form {
   gap: 15px;
   justify-content: center;
   align-items: start;
-  min-width: 400px;
   align-self: center;
 }
 
@@ -85,7 +84,7 @@ header {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 2%;
+  padding: 2% 6% 2% 6%;
 
   /* align-items: center; */
   /* justify-content: space-between; */
@@ -116,7 +115,7 @@ footer {
 
 .back {
   text-decoration: none;
-  color: #8044e2;
+  color: #4a5568;
   font-style: italic;
 }
 
@@ -130,19 +129,54 @@ footer {
   gap: 14px;
 }
 
-.folder-grid,
+.folder-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
 .file-grid {
   display: grid;
   grid-template-columns: 1fr;
 }
 
-.folder-card,
-.file-card {
+.file-header-name,
+.file-name {
+  margin-right: auto;
+}
+
+.folder-card {
   display: flex;
-  padding: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
   border-bottom: 1px solid #edf2f7;
   justify-content: space-between;
   align-items: center;
+}
+
+.file-card {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr repeat(3, 80px);
+  padding-top: 8px;
+  padding-bottom: 8px;
+  align-items: center;
+  justify-items: center;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.file-header {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr repeat(3, 80px);
+  padding-top: 8px;
+  align-items: center;
+  justify-items: center;
+  border-bottom: 1px solid #cbd5e0;
+  padding-bottom: 4px;
+}
+
+.file-card p {
+  text-align: center;
 }
 
 .name-link {
@@ -163,15 +197,16 @@ footer {
 .folder-header {
   border-bottom: 1px solid #cbd5e0;
   padding-bottom: 4px;
-  /* margin-bottom: 4px; */
 }
 
 form .delete-btn {
   background-color: transparent;
-  font-style: italic;
-  color: #4a5568;
 }
 
 form .delete-btn:hover {
   color: #242c3a;
+}
+
+img {
+  width: 20px;
 }

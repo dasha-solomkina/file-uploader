@@ -24,5 +24,6 @@ indexRouter.get('/add-file', indexController.getAddFile)
 indexRouter.post('/add-folder', indexController.postAddFolder)
 indexRouter.get('/folder/:id', indexController.getFolder)
 indexRouter.post('/folder/:id', indexController.postDeleteFolder)
+indexRouter.post('/file/:id', indexController.postDeleteFile)
 
 export default indexRouter

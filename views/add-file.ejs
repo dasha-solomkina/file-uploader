@@ -17,7 +17,7 @@
     <div class="container">
       <a class="back" href="/"> < go back </a>
 
-      <form action="/add-file" method="POST">
+      <form action="/add-file" method="POST" enctype="multipart/form-data">
         <label for="name">File name</label>
         <input
           type="text"
@@ -32,6 +32,9 @@
           <option value="<%= folder.id %>"><%= folder.name %></option>
           <%})%>
         </select>
+
+        <input type="file" name="upload" id="upload" />
+
         <button class="logging-btn" type="submit">Upload file</button>
       </form>
     </div>

@@ -17,7 +17,7 @@
 
       <div class="file-grid">
         <div class="file-header">
-          <h3>Name</h3>
+          <h3 class="file-header-name">Name</h3>
           <h3>Size</h3>
           <h3>Time</h3>
         </div>
@@ -27,6 +27,20 @@
           <p class="file-name"><%= file.name %></p>
           <p><%= file.size %></p>
           <p><%= file.time %></p>
+          <form
+            action="/file/<%= file.id %>"
+            method="POST"
+            style="display: inline"
+            class="delete"
+          >
+            <button
+              type="submit"
+              class="delete-btn"
+              onclick="return confirm('Are you sure you want to delete this folder?');"
+            >
+              <img src="../delete.png" alt="trash bin" />
+            </button>
+          </form>
         </div>
         <%})%> <% } else {%>
         <div>
