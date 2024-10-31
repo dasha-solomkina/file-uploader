@@ -61,7 +61,19 @@ async function getFolder(req: Request, res: Response) {
     const files = await prisma.files.findMany({
       where: { folderId: folderId },
     })
-    res.render('folder', { folderId, folder, files })
+
+    const modifiedFiles = files.map((file) => {
+      const newTime = file.time.toLocaleDateString('en-US', {
+        month: 'long',
+        day: 'numeric',
+      })
+      return {
+        ...file,
+        time: newTime,
+      }
+    })
+
+    res.render('folder', { folderId, folder, files: modifiedFiles })
   } catch (error) {
     res.status(500).send('Server error')
   }
