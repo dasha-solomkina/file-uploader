@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/styles.css" />
+    <link rel="icon" href="../folder.png" type="image/x-icon" />
 
     <title>Your files</title>
   </head>
@@ -19,6 +20,7 @@
         <div class="file-header">
           <h3 class="file-header-name">Name</h3>
           <h3>Size</h3>
+          <h3>URL</h3>
           <h3>Time</h3>
         </div>
 
@@ -26,6 +28,9 @@
         <div class="file-card">
           <p class="file-name"><%= file.name %></p>
           <p><%= file.size %></p>
+          <a href="<%= file.url %>">
+            <p>Link</p>
+          </a>
           <p><%= file.time %></p>
           <form
             action="/file/<%= file.id %>"

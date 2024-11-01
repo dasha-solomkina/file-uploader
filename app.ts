@@ -8,6 +8,7 @@ import { PrismaClient } from '@prisma/client'
 import indexRouter from './routes/index'
 import { PrismaSessionStore } from '@quixo3/prisma-session-store'
 import multer from 'multer'
+import cloudinary from './cloudinaryConfig'
 
 const prisma = new PrismaClient()
 const app = express()
@@ -91,7 +92,7 @@ const storage = multer.diskStorage({
   },
 })
 
-const upload = multer({ storage: storage })
+const upload = multer({ storage: multer.memoryStorage() })
 
 app.post(
   '/add-file',
@@ -106,18 +107,35 @@ app.post(
         res.status(400).send('No file uploaded')
         return
       }
-      const fileSize = `${(file.size / 1024).toFixed(1)} KB`
-      const fileUrl = `path/to/your/storage/${file.originalname}`
+      const uploadResult = await cloudinary.uploader.upload_stream(
+        { folder: 'uploads' },
+        (error, result) => {
+          if (!result) {
+            console.error('Cloudinary upload error:', error)
+            res.status(500).send('Cloudinary upload error')
+            return
+          }
 
-      await prisma.files.create({
-        data: {
-          name,
-          size: fileSize,
-          url: fileUrl,
-          folderId: folder,
-        },
-      })
-      res.redirect('/')
+          const fileUrl = result.secure_url
+
+          prisma.files
+            .create({
+              data: {
+                name,
+                size: `${(file.size / 1024).toFixed(1)} KB`,
+                url: fileUrl,
+                folderId: folder,
+              },
+            })
+            .then(() => res.redirect('/'))
+            .catch((dbError) => {
+              console.error('Database error:', dbError)
+              res.status(500).send('Server error')
+            })
+        }
+      )
+
+      uploadResult.end(file.buffer)
     } catch (error) {
       console.error('Error uploading file:', error)
 
