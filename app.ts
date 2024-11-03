@@ -5,10 +5,12 @@ import passport from 'passport'
 import path from 'path'
 import { Strategy as LocalStrategy } from 'passport-local'
 import { PrismaClient } from '@prisma/client'
-import indexRouter from './routes/index'
 import { PrismaSessionStore } from '@quixo3/prisma-session-store'
 import multer from 'multer'
 import cloudinary from './cloudinaryConfig'
+import folderRouter from './controller/folderRoutes'
+import userRouter from './controller/userRoutes'
+import fileRouter from './controller/fileRoutes'
 
 const prisma = new PrismaClient()
 const app = express()
@@ -82,15 +84,15 @@ passport.deserializeUser(async (id: string, done) => {
   }
 })
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/')
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9)
-    cb(null, file.originalname + '-' + uniqueSuffix)
-  },
-})
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, 'uploads/')
+//   },
+//   filename: function (req, file, cb) {
+//     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9)
+//     cb(null, file.originalname + '-' + uniqueSuffix)
+//   },
+// })
 
 const upload = multer({ storage: multer.memoryStorage() })
 
@@ -162,7 +164,9 @@ app.get('/log-out', (req, res, next) => {
   })
 })
 
-app.use('/', indexRouter)
+app.use('/', folderRouter)
+app.use('/', userRouter)
+app.use('/', fileRouter)
 
 const PORT = Number(process.env.PORT) || 3000
 
