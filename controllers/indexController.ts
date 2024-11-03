@@ -5,14 +5,17 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 async function getHome(req: Request, res: Response) {
-  const userId = res.locals.currentUser.id
-
   try {
-    const folders = await prisma.folder.findMany({
-      where: {
-        userId: userId,
-      },
-    })
+    let folders = null
+    if (res.locals.currentUser) {
+      const userId = res.locals.currentUser.id
+      folders = await prisma.folder.findMany({
+        where: {
+          userId: userId,
+        },
+      })
+    }
+
     res.render('index', { folders: folders })
   } catch (error) {
     res.status(500).send('Server error')
