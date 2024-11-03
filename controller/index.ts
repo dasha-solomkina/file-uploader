@@ -1,6 +1,6 @@
 import { NextFunction, Router } from 'express'
 import { body } from 'express-validator'
-import indexController from '../controllers/indexController'
+import indexController from '../service/indexController'
 
 const indexRouter = Router()
 
@@ -25,5 +25,6 @@ indexRouter.post('/add-folder', indexController.postAddFolder)
 indexRouter.get('/folder/:id', indexController.getFolder)
 indexRouter.post('/folder/:id', indexController.postDeleteFolder)
 indexRouter.post('/file/:id', indexController.postDeleteFile)
+// /file/:id => file.controller.delete(id) => receive object
 
 export default indexRouter

@@ -2,6 +2,7 @@ import { validationResult } from 'express-validator'
 import bcrypt from 'bcryptjs'
 import { NextFunction, Request, Response } from 'express'
 import { PrismaClient } from '@prisma/client'
+
 const prisma = new PrismaClient()
 
 async function getHome(req: Request, res: Response) {
@@ -158,9 +159,10 @@ async function postDeleteFolder(req: Request, res: Response) {
     res.status(500).send('Server error')
   }
 }
-
+// FILE service
+// no req, no res
 async function postDeleteFile(req: Request, res: Response): Promise<void> {
-  const fileId = req.params.id
+  const fileId = req.params.id // to controller
 
   try {
     const file = await prisma.files.findUnique({
@@ -187,8 +189,10 @@ async function postDeleteFile(req: Request, res: Response): Promise<void> {
     })
 
     res.render('folder', { folderId, folder, files })
+    // return the object
   } catch (error) {
     res.status(500).send('Server error')
+    // throw new Error('E.g. Folder not found')
   }
 }
 
