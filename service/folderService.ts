@@ -34,6 +34,19 @@ export async function addFolder(name: string, userId: string) {
 }
 
 export async function deleteFolder(folderId: string) {
+  const files = await prisma.files.findMany({
+    where: {
+      folderId: folderId,
+    },
+  })
+
+  if (files) {
+    await prisma.files.deleteMany({
+      where: {
+        folderId: folderId,
+      },
+    })
+  }
   await prisma.folder.delete({
     where: { id: folderId },
   })
