@@ -4,20 +4,19 @@ import session from 'express-session'
 import passport from 'passport'
 import path from 'path'
 import { Strategy as LocalStrategy } from 'passport-local'
-import { PrismaClient } from '@prisma/client'
 import { PrismaSessionStore } from '@quixo3/prisma-session-store'
 import multer from 'multer'
 import cloudinary from './cloudinaryConfig'
-import folderRouter from './controller/folderRoutes'
-import userRouter from './controller/userRoutes'
-import fileRouter from './controller/fileRoutes'
+import folderRouter from './app/controller/folderRoutes'
+import userRouter from './app/controller/userRoutes'
+import fileRouter from './app/controller/fileRoutes'
+import prisma from './prisma/client'
 
-const prisma = new PrismaClient()
 const app = express()
 const assetsPath = path.join(__dirname, 'public')
 
 app.set('view engine', 'ejs')
-app.set('views', path.join(__dirname, 'views'))
+app.set('views', path.join(__dirname, 'app', 'views'))
 
 app.use(
   session({

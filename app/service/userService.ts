@@ -1,6 +1,11 @@
 import bcrypt from 'bcryptjs'
-import { PrismaClient } from '@prisma/client'
-const prisma = new PrismaClient()
+import prisma from '../../prisma/client'
+
+type CreateUserOpts = {
+  name: string
+  email: string
+  password: string
+}
 
 export async function findUserByEmail(email: string) {
   return prisma.user.findUnique({
@@ -8,11 +13,8 @@ export async function findUserByEmail(email: string) {
   })
 }
 
-export async function createUser(
-  name: string,
-  email: string,
-  password: string
-) {
+export async function createUser(opts: CreateUserOpts) {
+  const { name, email, password } = opts
   const hashedPassword = await bcrypt.hash(password, 10)
 
   return await prisma.user.create({

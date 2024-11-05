@@ -1,8 +1,21 @@
 import { Router, Request, Response, NextFunction } from 'express'
 import { validationResult, body } from 'express-validator'
 import { findUserByEmail, createUser } from '../service/userService'
+import { z } from 'zod'
 
 const router = Router()
+
+const signUpSchema = z
+  .object({
+    email: z.string().email('Invalid email format'),
+    password: z.string().min(5, 'Password must be at least 5 characters long'),
+    confirmPassword: z.string(),
+    name: z.string().min(1, 'Name is required'),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'Password confirmation does not match password',
+    path: ['confirmPassword'],
+  })
 
 const validateSignUp = [
   body('password')
@@ -24,11 +37,10 @@ router.post(
   '/sign-up',
   validateSignUp,
   async (req: Request, res: Response, next: NextFunction) => {
-    const { email, password, name } = req.body
-
     const errors = validationResult(req)
+
     if (!errors.isEmpty()) {
-      return res.render('sign-up', {
+      return res.render('index', {
         error: errors
           .array()
           .map((error) => error.msg)
@@ -37,17 +49,28 @@ router.post(
       })
     }
 
+    const result = signUpSchema.safeParse(req.body)
+    if (!result.success) {
+      const zodErrors = result.error.errors.map((err) => err.message).join(', ')
+      return res.render('index', {
+        error: zodErrors,
+        formData: req.body,
+      })
+    }
+
+    const { email, password, name } = result.data
+
     try {
       const existingUser = await findUserByEmail(email)
 
       if (existingUser) {
-        return res.render('sign-up', {
+        return res.render('index', {
           error: 'Email already taken. Please choose another one.',
           formData: req.body,
         })
       }
 
-      const newUser = await createUser(name, email, password)
+      const newUser = await createUser({ name, email, password })
 
       req.login(newUser, (err) => {
         if (err) return next(err)
